@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-    protect_from_forgery except: [destroy]
+    protect_from_forgery except: [:destroy]
     before_action :set_book, only: [:show, :destroy]
     around_action :action_logger, only: [:destroy]
 
