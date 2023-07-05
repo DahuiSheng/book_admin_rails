@@ -10,12 +10,18 @@ class Book < ApplicationRecord
     validates :name, length: { maximum: 25 }
     validates :price, numericality: { greater_than_or_equal_to: 0 }
 
-    
+
     before_validation :add_lovely_to_cat
 
     def add_lovely_to_cat
         self.name = self.name.gsub(/Cat/) do |matched|
             "lovely #{matched}"
         end
+    end
+
+    after_validation :after_destroy
+
+    def after_destroy
+        Rails.logger.info "Book is deleted: #{self.attributes}"
     end
 end
